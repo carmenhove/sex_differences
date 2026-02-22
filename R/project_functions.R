@@ -92,6 +92,52 @@ get.predictions <- function(x, df){
   pred
 }
 
+## Get percent values
+get.percent <- function(df,
+                        ref_NumPartos,
+                        new_NumPartos,
+                        ref_RepPhase,
+                        new_RepPhase,
+                        #ref_Age,
+                        ref_Sex = "Female") {
+  
+  # Subset to requested sex (default Female)
+  df_sub <- df %>% 
+    filter(Sex == ref_Sex)
+  
+  # Extract the reference row
+  ref_row <- df_sub %>%
+    filter(NumPartos == ref_NumPartos,
+           RepPhase  == ref_RepPhase)
+  
+  if (nrow(ref_row) == 0) {
+    stop("Reference combination not found in dataframe.")
+  }
+  
+  ref_value <- ref_row$fitted[1]
+  ref_lwr   <- ref_row$lwr_ci[1]
+  ref_upr   <- ref_row$upr_ci[1]
+  
+  # Compute percent differences relative to chosen reference
+  pred <- df_sub %>%
+    mutate(
+      ref_value = ref_value,
+      ref_lwr   = ref_lwr,
+      ref_upr   = ref_upr,
+      
+      pct_diff     = (fitted - ref_value) / ref_value * 100,
+      pct_diff_lwr = (lwr_ci - ref_value) / ref_value * 100,
+      pct_diff_upr = (upr_ci - ref_value) / ref_value * 100
+    ) %>% 
+    filter(NumPartos == new_NumPartos, RepPhase == new_RepPhase, Age == median(Age)) %>% 
+    select(RepPhase, Age, NumPartos, Sex, starts_with("pct")) %>% 
+    mutate(pct_diff = str_c(round(pct_diff, digits = 2), "% (95% CI: ", round(pct_diff_lwr, digits =2), "%, ", round(pct_diff_upr, digits = 2),"%)"),
+           pct_diff = case_when(pct_diff_upr < 0 ~ gsub("-","",pct_diff),
+                                TRUE ~ pct_diff))
+  
+  pred$pct_diff 
+}
+
 ## Function to get biases, separated by parity 
 get.dfs <- function(x){
   x2 <- x %>%
@@ -241,5 +287,56 @@ get.abs.values <- function(x, a, b, c, d = 1){
   x3 <- x2 %>% filter(Group == d)
   x3
 
+}
+
+get.ci <- function(df, measure, population, parity, phase){
+  
+  df2 <- df %>% 
+    filter(
+      Measure == measure,
+      RepPhase == phase,
+      Population == population, 
+      NumPartos == parity
+    ) %>% 
+    mutate(
+      fit = case_when(
+        as.character(.data$Unit) == "Cells/µL" ~ round(fit),
+        TRUE ~ round(fit, 2)
+      ),
+      lwr_ci = case_when(
+        as.character(.data$Unit) == "Cells/µL" ~ round(lwr_ci),
+        TRUE ~ round(lwr_ci, 2)
+      ),
+      upr_ci = case_when(
+        as.character(.data$Unit) == "Cells/µL" ~ round(upr_ci),
+        TRUE ~ round(upr_ci, 2)
+      ),
+      text = case_when(
+        as.character(.data$Unit) == "Cells/µL" ~ " cells/µL",
+        TRUE ~ ""
+      )
+    ) %>% 
+    mutate(
+      ci = case_when(
+        as.character(.data$Unit) == "Cells/µL" ~
+          str_c(
+            comma(fit), text,
+            " (95% CI: ",
+            comma(lwr_ci), "-",
+            comma(upr_ci),
+            ")"
+          ),
+        TRUE ~
+          str_c(
+            sprintf("%.2f", fit),
+            " (95% CI: ",
+            sprintf("%.2f", lwr_ci), "-",
+            sprintf("%.2f", upr_ci),
+            ")"
+          )
+      )
+    )
+  
+  df2$ci
 }
 

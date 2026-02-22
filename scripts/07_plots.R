@@ -19,7 +19,7 @@ figure_1d <- get.plot.repphase(plot_list[["Tsimane.Ratio"]], 3) +
   scale_y_continuous(limits = c(0, 3.5))
 
 figure_1 <- (figure_1a + figure_1b) / (figure_1c + figure_1d) +
-  plot_layout(guides = "collect", heights = c(5,1)) +
+  plot_layout(guides = "collect", heights = c(5,2)) +
   plot_annotation(tag_levels = "A") 
 
 ggsave("./output/figure_1.png",figure_1,
@@ -106,6 +106,13 @@ figure_s2 <- ggplot(model_matcheddf %>%
 ggsave("./output/figure_s2.png",figure_s2,
        device = ragg::agg_png,dpi = 900,
        width = 22, height = 11, units = "cm")
+
+
+parity_comps <- plot_df2 %>% 
+  filter((Population == "USA" & Measure %in% c("NEU","MON",'NLR') & RepPhase == "Pregnant") |
+         (Population == "Tsimane" & Measure == "EOS" & RepPhase == "Postmenopausal") |
+         (Measure == "NLR" & RepPhase == "Postmenopausal")) %>% 
+  filter(NumPartos %in% c(0,4))
 
 
 
