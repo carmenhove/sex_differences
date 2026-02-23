@@ -59,19 +59,84 @@ table_s2 <- model_matcheddf %>%
   arrange(Measure) %>% 
   select(Measure, Male, `Pre-Menst`, Cycling, Pregnant, Postpartum, Menopause)
 
-#Table S3
+# #Table S3
+# table_s3 <- pred_df %>% 
+#   filter((RepPhase != "Pre-Menst" & NumPartos == 3) | RepPhase == "Pre-Menst") %>% 
+#   mutate(Bias = case_when(Male_lwr > upr_ci ~ "Male",
+#                    Male_upr < lwr_ci ~ "Female",
+#                    TRUE ~ "No Bias")) %>% 
+#   group_by(Population, Measure, RepPhase, Bias) %>% 
+#   mutate(Diff_medians = abs(Male_median - fit)) %>% 
+#   filter(Sex != "Male", Bias != "No Bias", Diff_medians == max(Diff_medians)) %>% 
+#   mutate(`Female Value` = str_c(fit, " ", tolower(Unit), " (95% CI: ", lwr_ci,"-", upr_ci,")"),
+#          `Male Value` = str_c(Male_median, " ", tolower(Unit), " (95% CI: ", Male_lwr,"-", Male_upr,")"),
+#          Measure = ordered(Measure, levels = c("WBC","NEU","LYM","EOS","MON","NLR"))) %>% 
+#   rename(`Reproductive Phase` = RepPhase) %>% 
+#   arrange(`Reproductive Phase`, Population) %>% 
+#   mutate(key = str_c(Population, ".", Measure)) %>% 
+#   rowwise() %>% 
+#   mutate(
+#     pct_diff = if (key %in% names(pred_list)) {
+#       get.percent(
+#         pred_list[[key]],
+#         0,
+#         NumPartos,
+#         "Male",
+#         `Reproductive Phase`,
+#         Age,
+#         Age,
+#         "Male",
+#         "Female"
+#       )
+#     } else {
+#       NA_character_
+#     }
+#   ) %>%
+#   ungroup()
+
+## Table S3
 table_s3 <- pred_df %>% 
   filter((RepPhase != "Pre-Menst" & NumPartos == 3) | RepPhase == "Pre-Menst") %>% 
-  mutate(Bias = case_when(Male_lwr > upr_ci ~ "Male",
-                   Male_upr < lwr_ci ~ "Female",
-                   TRUE ~ "No Bias")) %>% 
+  mutate(Bias = case_when(
+    Male_lwr > upr_ci ~ "Male",
+    Male_upr < lwr_ci ~ "Female",
+    TRUE ~ "No Bias"
+  )) %>% 
   group_by(Population, Measure, RepPhase, Bias) %>% 
   mutate(Diff_medians = abs(Male_median - fit)) %>% 
-  filter(Sex != "Male", Bias != "No Bias", Diff_medians == max(Diff_medians)) %>% 
-  mutate(`Female Value` = str_c(fit, " ", tolower(Unit), " (95% CI: ", lwr_ci,"-", upr_ci,")"),
-         `Male Value` = str_c(Male_median, " ", tolower(Unit), " (95% CI: ", Male_lwr,"-", Male_upr,")"),
-         Measure = ordered(Measure, levels = c("WBC","NEU","LYM","EOS","MON","NLR"))) %>% 
-  rename(`Reproductive Phase` = RepPhase)
+  filter(Sex != "Male", Bias != "No Bias") %>%
+  arrange(desc(Diff_medians), Age) %>%
+  slice(1) %>%
+  mutate(
+    `Female Value` = str_c(fit, " ", tolower(Unit), 
+                           " (95% CI: ", lwr_ci,"-", upr_ci,")"),
+    `Male Value` = str_c(Male_median, " ", tolower(Unit), 
+                         " (95% CI: ", Male_lwr,"-", Male_upr,")"),
+    Measure = ordered(Measure, 
+                      levels = c("WBC","NEU","LYM","EOS","MON","NLR"))
+  ) %>% 
+  rename(`Reproductive Phase` = RepPhase) %>% 
+  arrange(`Reproductive Phase`, Population) %>% 
+  mutate(key = str_c(Population, ".", Measure)) %>% 
+  rowwise() %>% 
+  mutate(
+    pct_diff = if (key %in% names(pred_list)) {
+      get.percent(
+        pred_list[[key]],
+        0,
+        NumPartos,
+        "Male",
+        `Reproductive Phase`,
+        Age,
+        Age,
+        "Male",
+        "Female"
+      )
+    } else {
+      NA_character_
+    }
+  ) %>%
+  ungroup()
 
 ## Model summaries
 model_sum_list <- map(model_outputs, tidy)
@@ -112,5 +177,16 @@ model_summaries <- bind_rows(model_sum_list, .id = "Population.Measure") %>%
 #           Term = ordered(Term, levels = c("Premenarchal","Cycling (Intercept)","Pregnant",
 #                                  "Postpartum","Postmenopausal"))) %>%
 #    arrange(Measure,Population,Term)
+
+age_deltas <- pred_list[[1]] %>% 
+  filter(Sex == "Female") %>% 
+  group_by(RepPhase) %>% 
+  mutate(
+    min_age = min(Age),
+    max_age = max(Age),
+    mid_age = (min(Age, na.rm = TRUE) + max(Age, na.rm = TRUE)) / 2,
+    dist    = abs(Age - mid_age)
+  ) %>%
+  slice_min(dist, n = 1, with_ties = FALSE)
 
 save.image('./Rmd/pnas.RData')

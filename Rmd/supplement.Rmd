@@ -1,13 +1,13 @@
 ---
 title: "Supplement"
-output: html_document
+output: word_document
 csl: "pnas.csl"
 bibliography: pnas.bib
 indent: TRUE
 ---
 ```{r supplement setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-pacman::p_load(devtools, tidyverse, openxlsx, ggpubr,
+pacman::p_load(devtools, tidyverse, openxlsx, ggpubr,scales,
                brms, calecopal, citr, knitr, wordcountaddin)
 
 load('pnas.RData')
@@ -63,8 +63,9 @@ knitr::kable(table_s3 %>%
                       `Reproductive Phase` = ordered(`Reproductive Phase`,
                             levels = c("Premenarchal","Cycling","Pregnant",
                                        "Postpartum","Postmenopausal"))) %>%
-               select(Population, Measure, `Reproductive Phase`, Age, NumPartos, Bias, `Female Value`, `Male Value`) %>% 
-               rename(Parity = NumPartos) %>% 
+               select(Population, Measure, `Reproductive Phase`, Age, NumPartos, Bias, `Female Value`, `Male Value`,pct_diff) %>% 
+               rename(Parity = NumPartos,
+                      `Percent Difference` = pct_diff) %>% 
                arrange(`Reproductive Phase`,Population,Measure), 
              caption = "Table S3. Ages and values at which the absolute difference in immune outcomes between females and their male counterparts is greatest, separated by female reproductive phase, population, and immune measure.")
 ```

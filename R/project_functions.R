@@ -98,20 +98,24 @@ get.percent <- function(df,
                         new_NumPartos,
                         ref_RepPhase,
                         new_RepPhase,
-                        #ref_Age,
-                        ref_Sex = "Female") {
-  
-  # Subset to requested sex (default Female)
-  df_sub <- df %>% 
-    filter(Sex == ref_Sex)
+                        ref_Age,
+                        new_Age,
+                        ref_Sex = "Female",
+                        new_Sex) {
   
   # Extract the reference row
-  ref_row <- df_sub %>%
+  ref_row <- df %>%
     filter(NumPartos == ref_NumPartos,
-           RepPhase  == ref_RepPhase)
+           RepPhase  == ref_RepPhase,
+           Age == ref_Age,
+           Sex == ref_Sex)
+  
+  # if (nrow(ref_row) == 0) {
+  #   stop("Reference combination not found in dataframe.")
+  # }
   
   if (nrow(ref_row) == 0) {
-    stop("Reference combination not found in dataframe.")
+    return(NA_character_)
   }
   
   ref_value <- ref_row$fitted[1]
@@ -119,23 +123,27 @@ get.percent <- function(df,
   ref_upr   <- ref_row$upr_ci[1]
   
   # Compute percent differences relative to chosen reference
-  pred <- df_sub %>%
+  pred <- df %>%
     mutate(
       ref_value = ref_value,
       ref_lwr   = ref_lwr,
       ref_upr   = ref_upr,
-      
       pct_diff     = (fitted - ref_value) / ref_value * 100,
       pct_diff_lwr = (lwr_ci - ref_value) / ref_value * 100,
-      pct_diff_upr = (upr_ci - ref_value) / ref_value * 100
+      pct_diff_upr = (upr_ci - ref_value) / ref_value * 100,
     ) %>% 
-    filter(NumPartos == new_NumPartos, RepPhase == new_RepPhase, Age == median(Age)) %>% 
+    filter(NumPartos == new_NumPartos, RepPhase == new_RepPhase, Age == new_Age, Sex == new_Sex) %>% 
     select(RepPhase, Age, NumPartos, Sex, starts_with("pct")) %>% 
-    mutate(pct_diff = str_c(round(pct_diff, digits = 2), "% (95% CI: ", round(pct_diff_lwr, digits =2), "%, ", round(pct_diff_upr, digits = 2),"%)"),
-           pct_diff = case_when(pct_diff_upr < 0 ~ gsub("-","",pct_diff),
-                                TRUE ~ pct_diff))
-  
-  pred$pct_diff 
+    mutate(pct_diff = case_when(pct_diff_upr < 0 & pct_diff_lwr < 0 ~ gsub("-","",
+                                                                           str_c(round(pct_diff, digits = 2), "% (95% CI: ", 
+                                                                            round(pct_diff_upr, digits =2), "%, ", 
+                                                                            round(pct_diff_lwr, digits = 2),"%)")
+                                                                           ),
+                                TRUE ~ str_c(round(pct_diff, digits = 2), "% (95% CI: ", 
+                                             round(pct_diff_lwr, digits =2), "%, ", 
+                                             round(pct_diff_upr, digits = 2),"%)")))
+  pred$Age
+  pred$pct_diff
 }
 
 ## Function to get biases, separated by parity 
@@ -339,4 +347,24 @@ get.ci <- function(df, measure, population, parity, phase){
   
   df2$ci
 }
+
+get.pct.diff <- function(df, Pop, Meas, RepPhase){
+  df_new <- df %>% 
+    filter(Population == Pop,
+           Measure == Meas,
+           `Reproductive Phase` == RepPhase)
+  df_new$pct_diff
+}
+
+
+table_s3 %>% 
+  filter(Population == "USA",
+         Measure == "MON",
+         `Reproductive Phase` == "Cycling") %>% 
+  select(Diff_medians)
+
+table_s3
+
+
+
 
