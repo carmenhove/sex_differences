@@ -1,6 +1,6 @@
 ---
 #title: "cover_letter"
-output: word_document
+output: html_document
 #date: "2023-12-05"
 ---
 
@@ -11,40 +11,39 @@ knitr::opts_chunk$set(echo = TRUE)
 <!-- Cover letter -->
 <!-- In your cover letter, you should include: -->
 
-<!-- The affiliation and contact information of your corresponding author -->
-<!-- A brief explanation of why the work is appropriate for Scientific Reports -->
-<!-- The names and contact information of any reviewers you consider suitable -->
-<!-- The names of any referees you would like excluded from reviewing -->
-<!-- Finally, you should state whether you have had any prior discussions with a Scientific Reports Editorial Board Member about the work described in your manuscript. -->
-
-Proceedings of the National Academy of Sciences  \
-Address
-
-Date
+Dear Dr. May Berenbaum and Editorial Board,
  
-Dear Dr May Berenbaum,
- 
-We are pleased to submit our manuscript "Title" to the *Proceedings of the National Academy of Sciences*. All authors have approved the manuscript and agree with its submission to the *Proceedings of the National Academy of Sciences*.
+I am writing to submit the manuscript, **"Female reproductive status and ecological conditions impact the magnitude of sex differences in human immune status across the lifespan"**, to the Proceedings of the National Academy of Sciences, co-authored with Michael Gurven, Benjamin Trumble, Jonathan Stieglitz, Daniel Eid Rodriguez, Ivan Maldonado Suarez, Hillard Kaplan, Amy Boddy, and Aaron Blackwell. 
 
-In this paper, we investigate the X. Considering X, we believe our findings (highlighted below) are an important step forward and will be of interest to a wide variety of readers:
+Our paper asks the following question: Do ecological conditions influence the magnitude of sexual dimorphism in human immune function? Considering the role that sex hormones play in shaping sex differences in immune function and the sensitivity of female ovarian function to energetic conditions, we test the hypothesis that evolutionarily novel conditions common to industrialized populations (e.g., energetic excess, reduced parity) amplify evolved sex differences in immunity.
  
-* X1
-* X2
-* X3
+Using data from the Tsimane Health and Life History Project and the US Center for Disease Control’s NHANES dataset, we estimate and compare the age-specific effects of sex on immune cell counts and neutrophil-to-lymphocyte ratio (NLR) among the Tsimane (a non-industrialized population inhabiting the Amazonian River Basin) and a representative sample from the USA. Compared to the USA, we find that the magnitude of sexual dimorphism in immune measures across the lifespan is significantly lower among the Tsimane and that this pattern is primarily driven by population-specific effects of pregnancy and menopause on female immune status.
  
-Should our manuscript be approved for peer review, we would like to recommend the following reviewers: 
-
-* Name: Email
-* Name: Email
-* Name: Email
-
-Thank you for considering our manuscript, and we look forward to hearing from you.
+We believe our paper is ideally suited to the diverse readership and high impact of your journal. Our paper is timely, especially given the recent call to investigate the effects of ecological conditions on sex differences in health and disease (Natri et al., 2019) and the plethora of complementary research on mechanisms of sexual dimorphism in immune function (including in PNAS: Gupta et al. 2020; Huang et al. 2021). Furthermore, the results communicated in our paper are relevant across a wide range of disciplines, including evolutionary biology, anthropology, medicine, ecology, and population biology.
+ 
+Currently there are 2 primary figures and 2 primary tables. The manuscript also includes a link to a public GitHub repository containing all R code used in our analyses. The Supplementary Information (SI) file contains 2 additional figures and 5 additional tables. We suggest that this paper be categorized as Biological Sciences (Immunology and Inflammation). Below we suggest editorial board members, NAS member editors, and referees:
+ 
+Suggested List of Editorial Board Members:\
+* Bruce R. Levin\
+* Katherine A. Fitzgerald\
+* Robert L. Coffman\
+ 
+Suggested List of National Academy of Sciences Members:\
+* Judy Lieberman\
+* Thomas McDade\
+* Christopher Kuzawa\
+ 
+Suggested List of Referees:\
+* Elizabeth Miller, University of South Florida, emm3@usf.edu \
+* J. Lee Nelson, Fred Hutchinson Cancer Research Center, nelsonlab@fredhutch.org\
+* Andrea Graham, Princeton University, algraham@princeton.edu\
+ 
+Thank you for your time and consideration!
  
 Sincerely,
  
 Carmen Hove
+ 
 
-Corresponding Author \
-Email: carmenhove@ucsb.edu \
-University of California, Santa Barbara \
+
 

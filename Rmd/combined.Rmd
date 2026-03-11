@@ -1,6 +1,6 @@
 ---
 #title: "Full Manuscript"
-output: html_document
+output: word_document
 csl: "pnas.csl"
 bibliography: pnas.bib
 ---
