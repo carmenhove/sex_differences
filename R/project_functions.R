@@ -135,13 +135,13 @@ get.percent <- function(df,
     filter(NumPartos == new_NumPartos, RepPhase == new_RepPhase, Age == new_Age, Sex == new_Sex) %>% 
     select(RepPhase, Age, NumPartos, Sex, starts_with("pct")) %>% 
     mutate(pct_diff = case_when(pct_diff_upr < 0 & pct_diff_lwr < 0 ~ gsub("-","",
-                                                                           str_c(round(pct_diff, digits = 2), "% (95% CI: ", 
-                                                                            round(pct_diff_upr, digits =2), "%, ", 
-                                                                            round(pct_diff_lwr, digits = 2),"%)")
+                                                                           str_c(round(pct_diff, digits = 0), "% (95% CI: ", 
+                                                                            round(pct_diff_upr, digits =0), "%, ", 
+                                                                            round(pct_diff_lwr, digits = 0),"%)")
                                                                            ),
-                                TRUE ~ str_c(round(pct_diff, digits = 2), "% (95% CI: ", 
-                                             round(pct_diff_lwr, digits =2), "%, ", 
-                                             round(pct_diff_upr, digits = 2),"%)")))
+                                TRUE ~ str_c(round(pct_diff, digits = 0), "% (95% CI: ", 
+                                             round(pct_diff_lwr, digits =0), "%, ", 
+                                             round(pct_diff_upr, digits = 0),"%)")))
   pred$Age
   pred$pct_diff
 }
@@ -352,7 +352,7 @@ get.pct.diff <- function(df, Pop, Meas, RepPhase){
   df_new <- df %>% 
     filter(Population == Pop,
            Measure == Meas,
-           `Reproductive Phase` == RepPhase)
+           `Reproductive Phase` == RepPhase) 
   df_new$pct_diff
 }
 
