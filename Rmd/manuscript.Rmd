@@ -185,7 +185,7 @@ Within both populations, we predict that (a) sex biases in immune status will be
 
 ### Female reproductive status has age-dependent and population-specific effects on the direction and magnitude of sex differences in immune markers 
 
-Among males in both populations, age is associated with strong non-linear and population-specific effects on all immune measures, especially within the first two decades of life (Figure 1, Table S4, Table S5). Among females, the effects of age on immune measures are mediated by current reproductive state and differ based on population and immune measure (Figure 1, Table S4, Table S5). 
+Among males in both populations, age is associated with strong non-linear and population-specific effects on all immune measures, especially within the first two decades of life (Figure 1, Table S4, Table S5). Among females, the effects of age on immune measures are mediated by current reproductive state and differ based on population and immune measure (Table 1, Figure 1, Table S4, Table S5). 
 
 ### In both populations, sex biases in certain immune measures emerge before females reach menarche but maximum sex differences in all immune markers are observed during the reproductive years
 
