@@ -11,38 +11,42 @@ knitr::opts_chunk$set(echo = TRUE)
 <!-- Cover letter -->
 <!-- In your cover letter, you should include: -->
 
-Dear Dr. May Berenbaum and Editorial Board,
- 
-I am writing to submit the manuscript, **"Female reproductive status and ecological conditions impact the magnitude of sex differences in human immune status across the lifespan"**, to the Proceedings of the National Academy of Sciences, co-authored with Michael Gurven, Benjamin Trumble, Jonathan Stieglitz, Daniel Eid Rodriguez, Ivan Maldonado Suarez, Hillard Kaplan, Amy Boddy, and Aaron Blackwell. 
+I am writing to submit the manuscript, **"Female reproductive status and ecological conditions impact the magnitude of sex differences in human immune status across the lifespan"** to the Proceedings of the National Academy of Sciences, co-authored with Michael Gurven, Benjamin Trumble, Jonathan Stieglitz, Daniel Eid Rodriguez, Ivan Maldonado Suarez, Hillard Kaplan, Aaron Blackwell, and Amy Boddy. 
 
-Our paper asks the following question: Do ecological conditions influence the magnitude of sexual dimorphism in human immune function? Considering the role that sex hormones play in shaping sex differences in immune function and the sensitivity of female ovarian function to energetic conditions, we test the hypothesis that evolutionarily novel conditions common to industrialized populations (e.g., energetic excess, reduced parity) amplify evolved sex differences in immunity.
+Current research indicates that there are substantial differences in male and female immune function and disease risk, with women experiencing less infectious disease risk but making up roughly 80% of all autoimmune diagnoses. However, because past research has predominantly focused on heavily industrialized populations with relatively low fertility rates and has generally excluded pregnant and postpartum women, it is unclear how female reproduction shapes sexual dimorphism across the lifespan or how these effects vary based on ecological factors. 
+
+Here, we test the hypothesis that evolutionarily novel conditions common to industrialized populations (e.g., energetic excess, reduced parity) amplify evolved sex differences in immunity. Using data from the Tsimane Health and Life History Project (n = 5,866) and the US Center for Disease Control’s NHANES dataset (n = 9,825), we estimate and compare the age-specific effects of sex on immune cell counts and neutrophil-to-lymphocyte ratio among the Tsimane, a non-industrialized South American Indigenous population, and a representative sample from the USA. 
+
+Compared to the USA, we find that the magnitude of sexual dimorphism in immune measures across the lifespan is significantly lower among the Tsimane and that this pattern is primarily driven by population-specific effects of pregnancy on female immune status. Our results suggest that the discrepancy in autoimmune disease risk between men and women found in industrialized high-income countries may be due, in part, to an exaggerated inflammatory response during pregnancy and population-level shifts in reproductive strategies (e.g., delayed age at first birth, reduced parity).  
  
-Using data from the Tsimane Health and Life History Project and the US Center for Disease Control’s NHANES dataset, we estimate and compare the age-specific effects of sex on immune cell counts and neutrophil-to-lymphocyte ratio (NLR) among the Tsimane (a non-industrialized population inhabiting the Amazonian River Basin) and a representative sample from the USA. Compared to the USA, we find that the magnitude of sexual dimorphism in immune measures across the lifespan is significantly lower among the Tsimane and that this pattern is primarily driven by population-specific effects of pregnancy and menopause on female immune status.
+We believe our paper is ideally suited to the diverse readership and high impact of your journal. Our paper is timely, given the call to investigate the effects of ecological conditions on sex differences in health and disease (Natri et al., 2019) and complementary research on mechanisms of sexual dimorphism in immune function (including in PNAS: Gupta et al. 2020; Huang et al. 2021; Dobson et al. 2026). Furthermore, the results communicated in our paper are relevant across a wide range of disciplines, including evolutionary biology, anthropology, medicine, ecology, and population biology.
  
-We believe our paper is ideally suited to the diverse readership and high impact of your journal. Our paper is timely, especially given the recent call to investigate the effects of ecological conditions on sex differences in health and disease (Natri et al., 2019) and the plethora of complementary research on mechanisms of sexual dimorphism in immune function (including in PNAS: Gupta et al. 2020; Huang et al. 2021). Furthermore, the results communicated in our paper are relevant across a wide range of disciplines, including evolutionary biology, anthropology, medicine, ecology, and population biology.
+Currently there are 2 primary figures and 2 primary tables. The manuscript also includes a link to a public GitHub repository containing all R code used in our analyses. The Supplementary Information (SI) file contains 2 additional figures, 5 additional tables. We suggest that this paper be categorized as Biological Sciences (Immunology and Inflammation). Below we suggest editorial board members, NAS member editors, and referees:
  
-Currently there are 2 primary figures and 2 primary tables. The manuscript also includes a link to a public GitHub repository containing all R code used in our analyses. The Supplementary Information (SI) file contains 2 additional figures and 5 additional tables. We suggest that this paper be categorized as Biological Sciences (Immunology and Inflammation). Below we suggest editorial board members, NAS member editors, and referees:
+Suggested List of Editorial Board Members:
+1.	Bruce R. Levin
+2.	Katherine A. Fitzgerald
+3.	Robert L. Coffman
  
-Suggested List of Editorial Board Members:\
-* Bruce R. Levin\
-* Katherine A. Fitzgerald\
-* Robert L. Coffman\
+Suggested List of National Academy of Sciences Members:
+1.	Judy Lieberman
+2.	Thomas McDade
+3.	Christopher Kuzawa
  
-Suggested List of National Academy of Sciences Members:\
-* Judy Lieberman\
-* Thomas McDade\
-* Christopher Kuzawa\
- 
-Suggested List of Referees:\
-* Elizabeth Miller, University of South Florida, emm3@usf.edu \
-* J. Lee Nelson, Fred Hutchinson Cancer Research Center, nelsonlab@fredhutch.org\
-* Andrea Graham, Princeton University, algraham@princeton.edu\
+Suggested List of Referees
+1.	Elizabeth Miller, University of South Florida, emm3@usf.edu 
+2.	J. Lee Nelson, Fred Hutchinson Cancer Research Center, nelsonlab@fredhutch.org
+3.	Andrea Graham, Princeton University, algraham@princeton.edu
  
 Thank you for your time and consideration!
  
 Sincerely,
- 
-Carmen Hove
+
+Carmen Hove, PhD
+University of California, Santa Barbara
+Integrative Anthropological Sciences Unit
+
+
  
 
 

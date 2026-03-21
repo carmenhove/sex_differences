@@ -55,7 +55,7 @@ nh.crp <- reduce(nhanes.l2[startsWith(names(nhanes.l2), c('L','CRP'))],full_join
   select(SEQN, LBXCRP)
   
 nh.rhq <- reduce(nhanes.l2[startsWith(names(nhanes.l2), 'RHQ')],full_join) %>%
-  select(SEQN, RHD143, RHQ031, RHQ131, RHQ160, RHQ200, RHQ171, RHQ197, RHD152, RHQ010,RHD042)
+  select(SEQN, RHD143, RHQ031, RHQ131, RHQ160, RHQ200, RHQ171, RHQ197, RHD152, RHQ010,RHD042, RHD442)
 
 nh.bmi <- reduce(nhanes.l2[startsWith(names(nhanes.l2), 'BMX')], full_join) %>%
   select(SEQN, BMXBMI)
@@ -82,6 +82,7 @@ nhanes.df2 <- nhanes.df1 %>%
          Age = RIDAGEYR,
          Sex = RIAGENDR,
          BMI = BMXBMI,
+         BC = RHD442,
          Menarche.rhq = RHQ010,
          Menarche.mcq = MCQ149,
          RegPeriods = RHQ031,
@@ -140,7 +141,7 @@ nhanes.df3 <- nhanes.df2 %>%
                               TRUE ~ NA_character_)) %>%
   filter(!is.na(RepPhase) & (!is.na(WBC) | !is.na(crp))) %>%
   select(pid, Population, Age, BMI, NumPartos, RepPhase, Sex, MonthPP, MonthPreg,
-         WBC, NEU, LYM, MON, EOS, BAS, crp)
+         WBC, NEU, LYM, MON, EOS, BAS, crp, BC)
 
 
 table(nhanes.df3$RepPhase)
