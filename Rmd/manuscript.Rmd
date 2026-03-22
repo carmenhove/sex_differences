@@ -1,6 +1,6 @@
 ---
 title: "Manuscript"
-output: word_document
+output: html_document
 csl: "pnas.csl"
 bibliography: pnas.bib
 indent: TRUE
@@ -183,9 +183,23 @@ Within both populations, we predict that (a) sex biases in immune status will be
 
 ## Results
 
+```{r, echo = F, message=F}
+sample_sizes <- model_matcheddf %>% 
+  mutate(unique_id = str_c(Population,id)) %>% 
+  group_by(Population, Sex) %>% 
+  summarise(n = n_distinct(unique_id))
+
+male_df <- sample_sizes %>% 
+  filter(Sex == "Male")
+
+female_df <- sample_sizes %>% 
+  filter(Sex == "Female")
+```
+
+
 ### Female reproductive status has age-dependent and population-specific effects on the direction and magnitude of sex differences in immune markers
 
-Among `r comma(merged_df %>% filter(RepPhase == "Male") %>% pull(pid) %>% n_distinct())` males in both populations (Tsimane n =`r comma(merged_df %>% filter(Population == "Tsimane", RepPhase == "Male") %>% pull(pid) %>% n_distinct())`; USA n = `r comma(merged_df %>% filter(Population == "USA", RepPhase == "Male") %>% pull(pid) %>% n_distinct())`), age is associated with strong non-linear and population-specific effects on all immune measures, especially within the first two decades of life (Figure 1, Table S4, Table S5). Among `r comma(merged_df %>% filter(Sex == "Female") %>% pull(pid) %>% n_distinct())` females (Tsimane n = `r comma(merged_df %>% filter(Population == "Tsimane", Sex == "Female") %>% pull(pid) %>% n_distinct())`; USA n = `r comma(merged_df %>% filter(Population == "USA", Sex == "Female") %>% pull(pid) %>% n_distinct())`), the effects of age on immune measures are mediated by current reproductive state and differ based on population and immune measure (Table 1, Figure 1, Table S4, Table S5). 
+Among `r comma(sum(male_df$n))` males in both populations (Tsimane n =`r comma(sum(male_df[male_df$Population == "Tsimane",]$n))`; USA n = `r comma(sum(male_df[male_df$Population == "USA",]$n))`), age is associated with strong non-linear and population-specific effects on all immune measures, especially within the first two decades of life (Figure 1, Table S4, Table S5). Among `r comma(sum(female_df$n))` females (Tsimane n = `r comma(sum(female_df[female_df$Population == "Tsimane",]$n))`; USA n = `r comma(sum(female_df[female_df$Population == "USA",]$n))`), the effects of age on immune measures are mediated by current reproductive state and differ based on population and immune measure (Table 1, Figure 1, Table S4, Table S5). 
 
 ### In both populations, sex biases in certain immune measures emerge before females reach menarche but maximum sex differences in all immune markers are observed during the reproductive years
 
@@ -271,7 +285,9 @@ We used cross-sectional and longitudinal clinical and demographic data collected
 
 ```{r, echo = F}
 bc_df <- nhanes.df3 %>% 
-  filter(RepPhase == "Cycling", !is.na(BC)) %>%
+  filter(pid %in% model_matcheddf$id,
+         RepPhase == "Cycling", 
+         !is.na(BC)) %>%
   group_by(BC) %>% 
   summarise(n = n_distinct(pid)) %>% 
   ungroup() %>% 
@@ -279,7 +295,7 @@ bc_df <- nhanes.df3 %>%
 ```
 
 
-To obtain a representative sample from the United States, we used publicly available cross-sectional NHANES data collected by the Centers for Disease Control (https://www.cdc.gov/nchs/nhanes/index.htm) between 2003 and 2016. Total and differential leukocyte counts were measured using the Coulter method. Females who were under the age of 8 (for which reproductive data were redacted) or who specifically reported absence of menarche were binned as premenarchal. Females who were not currently pregnant, had not given birth within the preceding 12 months, and who reported a regular menstrual cycle either at time of exam or within the preceding two months were binned as regularly cycling. Out of `r comma(merged_df %>% dplyr::filter(Population == "USA", RepPhase == "Cycling") %>% dplyr::pull(pid) %>% dplyr::n_distinct())` regularly cycling females with data on at least one immune marker, a subset (n = `r comma(sum(bc_df$n))`) had data on current use of hormonal birth control with only `r bc_df[bc_df$BC==1,]$n` reporting current use of hormonal birth control. Because data were missing for so many individuals, we did not include this variable in our statistical models. Females who self-reported being pregnant and/or had a positive urine test at the time of exam were categorized as currently pregnant. Women who were not currently pregnant but had given birth within the past 12 months were considered postpartum. Finally, females who reported absence of regular menstruation due to menopause were binned as postmenopausal.
+To obtain a representative sample from the United States, we used publicly available cross-sectional NHANES data collected by the Centers for Disease Control (https://www.cdc.gov/nchs/nhanes/index.htm) between 2003 and 2016. Total and differential leukocyte counts were measured using the Coulter method. Females who were under the age of 8 (for which reproductive data were redacted) or who specifically reported absence of menarche were binned as premenarchal. Females who were not currently pregnant, had not given birth within the preceding 12 months, and who reported a regular menstrual cycle either at time of exam or within the preceding two months were binned as regularly cycling. Out of `r comma(model_matcheddf %>% dplyr::filter(Population == "USA", RepPhase == "Cycling") %>% dplyr::pull(id) %>% dplyr::n_distinct())` regularly cycling females with data on at least one immune marker, a subset (n = `r comma(sum(bc_df$n))`) had data on current use of hormonal birth control, with only `r bc_df[bc_df$BC==1,]$n` women reporting current use of hormonal birth control. Because data were missing for so many individuals, we did not include this variable in our statistical models. Females who self-reported being pregnant and/or had a positive urine test at the time of exam were categorized as currently pregnant. Women who were not currently pregnant but had given birth within the past 12 months were considered postpartum. Finally, females who reported absence of regular menstruation due to menopause were binned as postmenopausal.
 
 ### Sample Selection
 Final THLHP and NHANES data sets were limited to males and females ages 2 to 84 with recorded white blood cell differential and body mass index (BMI). NLR was calculated by dividing neutrophil count by total lymphocyte count. We excluded `r early_meno$n` females from the NHANES dataset who reported reaching menopause before age 40 and `r late_meno$n` individual who reported regular menstruation after the age of 70 (effectively removing outliers associated with very early versus delayed menopause and/or errors in the data). We also removed extreme values for immune cell counts and NLR by limiting our sample to values which fell between population-pooled 1% and 99% percentiles. This exclusion criterion resulted in `r comma(sum(removed_data$removed))` data points (`r str_c(percent = format(round(sum(removed_data$removed)/sum(removed_data$original)*100, digits = 2), nsmall = 2), "%")`) being removed out of the initial pooled dataset consisting of `r comma(sum(removed_data$original))` unique values. Given the ubiquity of chronic parasitic infections among the Tsimane, we did not exclude individuals with known infection or illness. In both populations, BMI varies considerably by age and sex (Figure S1), so we z-scored all BMI values using sex and age-specific mean values. No exclusions were based on medical diagnoses. Finally, we used the *matchit* package [@ho_etal11] to create matched THLHP and NHANES samples stratified by age, sex, and female reproductive phase (specifying nearest neighbor matching on propensity score) (Figure S2, Table S1). 
