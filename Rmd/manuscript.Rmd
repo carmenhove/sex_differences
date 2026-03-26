@@ -1,8 +1,8 @@
 ---
 title: "Manuscript"
 output: html_document
-csl: "pnas.csl"
-bibliography: pnas.bib
+csl: "nature.csl"
+bibliography: sex_differences.bib
 indent: TRUE
 ---
 ```{r manuscript setup, include=FALSE}
@@ -14,54 +14,15 @@ knitr::opts_chunk$set(echo = TRUE)
 pacman::p_load(devtools, tidyverse, openxlsx, ggpubr, here, scales,
                brms, calecopal, citr, knitr, wordcountaddin)
 
-load('pnas.RData')
+load('sex_differences.RData')
 source(here("R/project_functions.R"))
 ```
-
-<!-- PNAS is format-neutral at initial submission, which means that manuscripts do not need to be formatted according to specific journal guidelines to be considered for review. We do, however, require the following information in order to evaluate your manuscript: -->
-
-<!-- a manuscript file (in any format) including the following: -->
-<!-- title page (title, author list, classification, keywords) -->
-<!-- abstract -->
-<!-- significance statement -->
-<!-- main text -->
-<!-- references -->
-<!-- figures or tables with appropriate legends (may be uploaded separately) -->
-<!-- SI files (may be uploaded separately) -->
-<!-- contact and competing interest information for all authors -->
-<!-- data sharing plans (for all data, documentation, and code used in analysis) -->
-<!-- funding information and whether an open access license has been selected -->
-<!-- list of appropriate Editorial Board members, NAS members, and qualified reviewers (minimum of three each) who are experts in the paper's scientific area. (A brief justification for suggested reviewers is welcome, particularly for interdisciplinary papers) -->
-
-<!-- Title page -->
-<!-- Abstract -->
-<!-- Explain to the general reader the major contributions of the article -->
-<!-- Include no more than 250 words -->
-<!-- Cite all references in the abstract in full within the abstract itself AND in the text -->
-<!-- Significance statement (Direct and Contributed Submissions only) -->
-<!-- Explain the significance of the research at a level understandable to an undergraduate-educated scientist outside their field of specialty -->
-<!-- Include no more than 120 words -->
-<!-- Main text -->
-<!-- Introduction -->
-<!-- Results -->
-<!-- Discussion -->
-<!-- Materials and methods (describe procedures in sufficient detail so that the work can be repeated) -->
-<!-- Acknowledgments and funding sources -->
-<!-- Spell out all abbreviations -->
-<!-- Use FundRef to identify the standard name for any funders -->
-<!-- Do not include dedications -->
-<!-- References -->
-<!-- Figure legends -->
 
 # Title Page
 
 ## Title: Female reproductive status and ecological conditions impact the magnitude of sex differences in human immune status across the lifespan
 
 ## Authors
-<!-- Author affiliations -->
-<!-- Include, in this order, department/laboratory/section/division, institution, city, state with ZIP code (for US institutions) or country with postal code (for non-US institutions). -->
-<!-- Use superscripts to match authors with institutions. Multiple affiliations are allowed. Affiliations where the work was done should be listed. If an author's affiliation has changed since the work was done, the current affiliation should also be listed and noted as such. -->
-<!-- PNAS strongly encourages authors to supply an ORCID identifier for each author. Do not include ORCIDs in the manuscript file; individual authors must link their ORCID account to their PNAS account at www.pnascentral.org. For proper authentication, authors must provide their ORCID at submission and are not permitted to add ORCIDs on proofs. -->
 
 Carmen Hove\*^1,2^, Michael D Gurven^1^, Benjamin C Trumble^3^, Jonathan Stieglitz^4^, Daniel Eid Rodriguez^5^, Ivan Maldonado Suarez^6^, Hillard Kaplan^7^, Aaron D Blackwell^+8^, Amy M Boddy^+1^
 
@@ -78,7 +39,7 @@ Carmen Hove\*^1,2^, Michael D Gurven^1^, Benjamin C Trumble^3^, Jonathan Stiegli
 ^+^Shared Senior \
 
 Carmen Hove \
-Email: carmen@redaanalytics.com \
+Email: carmenhove@ucsb.edu \
 Phone: (360) 621-3508 \
 
 <!-- Aaron Blackwell \ -->
@@ -118,16 +79,6 @@ Phone: (360) 621-3508 \
 <!-- ORCID: https://orcid.org/0000-0002-5871-9865 \ -->
 <!-- Affiliation: Washington State University -->
 
-## Classification
-<!-- Select both a major and minor classification category. Dual classifications are permitted between major categories. -->
-
-Major: Biological Sciences \
-Minor: Immunology and Inflammation
-
-## Keywords
-<!-- Include at least three keywords at submission. -->
-
-\newpage
 
 ## Abstract
 <!-- Explain to the general reader the major contributions of the article. Include no more than 250 words. -->
