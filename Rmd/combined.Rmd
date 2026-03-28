@@ -1,0 +1,14 @@
+---
+#title: "Full Manuscript"
+output: html_document
+csl: "pnas.csl"
+bibliography: pnas.bib
+---
+
+```{r child = 'manuscript.Rmd'}
+```
+
+\newpage
+
+```{r child = 'supplement.Rmd'}
+```
